@@ -29,6 +29,7 @@ fi
 TOKEN=$(gcloud auth print-access-token)
 
 echo "Creating default network..."
+gcloud services enable compute.googleapis.com
 gcloud compute networks create default
 
 echo "Testing if Apigee X is provisioned..."
