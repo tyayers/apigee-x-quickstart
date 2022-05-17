@@ -14,15 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+echo "Creating project..."
+gcloud projects create $PROJECT
 
-export PROJECT="cloud3x" # The name of the GCP project
-export NETWORK="default" # The network to use (will be created if it doesn't exist)
-export LOCATION="europe-west1-a" # The location for the Apigee X instance and analytics data
-export MANAGED_DOMAIN_PREFIX="api" # The domain prefix to use for the Apigee X load balancer (using prefix.ip.nip.io)
-
-# OPTIONAL parameters
-export BILLING_ID=""
-
-gcloud config set project $PROJECT
-
-export PROJECTNUMBER=$(gcloud projects list --filter="$(gcloud config get-value project)" --format="value(PROJECT_NUMBER)")
+if [ -n "$BILLING_ID" ]
+then
+echo "Linking billing id..."
+gcloud beta billing projects link $PROJECT --billing-account=$BILLING_ID
+fi
