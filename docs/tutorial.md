@@ -27,10 +27,12 @@ source ./env.sh
 
 Now let's prepare our GCP project.  
 
-Run this command in the Cloud Shell.
+Click <walkthrough-editor-open-file filePath="prepare-project.sh">here</walkthrough-editor-open-file> to open the file in the editor, and see the commands to set the org policies, and add an admin user to the project.
+
+Now let's run the script:
 
 ```sh
-./prepare-project.sh
+chmod +x prepare-project.sh && ./prepare-project.sh
 ```
 
 This will set the correct org policies that Apigee needs for a typical demo or test environment.
@@ -44,7 +46,7 @@ This will set the correct org policies that Apigee needs for a typical demo or t
 Now let's provision Apigee X. Executing the provision script will enable all needed APIs, provision both the Apigee X instance in the specified region as well as a public load balancer and test certificate (for more information see the [Apigee DevRel docs](https://github.com/apigee/devrel/tree/main/tools/apigee-x-trial-provision)).
 
 ```sh
-./provision-apigee.sh
+chmod +x provision-apigee.sh && ./provision-apigee.sh
 ```
 
 ---

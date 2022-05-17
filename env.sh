@@ -16,7 +16,7 @@
 export PROJECT="cloud3x" # The name of the GCP project
 export NETWORK="default" # The network to use (will be created if it doesn't exist)
 export LOCATION="europe-west1-a" # The location for the Apigee X instance and analytics data
-export ADMIN="user@example.com" # A user who should get ownership access to the GCP project & Apigee org
+export MANAGED_DOMAIN_PREFIX="api" # The domain prefix to use for the Apigee X load balancer (using prefix.ip.nip.io)
 
 gcloud config set project $PROJECT
 
