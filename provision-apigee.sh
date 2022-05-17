@@ -37,5 +37,5 @@ RUNTIME_IP=$(gcloud compute addresses describe lb-ipv4-vip-1 --format="get(addre
 if [ -z "$RUNTIME_IP" ]
 then
 echo "Provisioning Apigee..."
-curl -L https://raw.githubusercontent.com/apigee/devrel/main/tools/apigee-x-trial-provision/apigee-x-trial-provision.sh | bash -
+curl -L https://raw.githubusercontent.com/tyayers/devrel/main/tools/apigee-x-trial-provision/apigee-x-trial-provision.sh | bash -
 fi

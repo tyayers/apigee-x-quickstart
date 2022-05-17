@@ -13,11 +13,10 @@
 # limitations under the License.
 
 
-export PROJECT="cloud3x"
-export NETWORK="default"
-export LOCATION="europe-west1-a"
-export APIGEE_ENV="eval"
-export ADMIN="user@example.com"
+export PROJECT="cloud3x" # The name of the GCP project
+export NETWORK="default" # The network to use (will be created if it doesn't exist)
+export LOCATION="europe-west1-a" # The location for the Apigee X instance and analytics data
+export ADMIN="user@example.com" # A user who should get ownership access to the GCP project & Apigee org
 
 gcloud config set project $PROJECT
 
