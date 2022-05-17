@@ -27,7 +27,3 @@ gcloud org-policies set-policy ./policies/requireOsLogin.yaml --project=$PROJECT
 gcloud org-policies set-policy ./policies/allowedPolicyMemberDomains.yaml --project=$PROJECT
 gcloud org-policies set-policy ./policies/requireShieldedVm.yaml --project=$PROJECT
 gcloud org-policies set-policy ./policies/vmExternalIpAccess.yaml --project=$PROJECT
-
-echo "Adding user to project..."
-gcloud projects add-iam-policy-binding $PROJECT \
-    --member=$ADMIN --role=roles/owner
