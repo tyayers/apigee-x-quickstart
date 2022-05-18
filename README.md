@@ -24,3 +24,10 @@ source env.sh
 ./provision-apigee.sh
 
 ```
+
+## Terraform deployment
+
+```sh
+terraform init
+terraform apply --var-file=./my-config.tfvars -var "project_id=$PROJECT_ID" -var "project_create=true" -var "billing_account=018917-0192AA-134A31"
+```
