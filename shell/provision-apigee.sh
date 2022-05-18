@@ -26,12 +26,6 @@ echo "No LOCATION variable set"
 exit
 fi
 
-TOKEN=$(gcloud auth print-access-token)
-
-echo "Creating default network..."
-gcloud services enable compute.googleapis.com
-gcloud compute networks create default
-
 echo "Testing if Apigee X is provisioned..."
 RUNTIME_IP=$(gcloud compute addresses describe lb-ipv4-vip-1 --format="get(address)" --global --project "$PROJECT" --quiet)
 if [ -z "$RUNTIME_IP" ]

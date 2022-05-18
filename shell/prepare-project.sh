@@ -18,12 +18,16 @@ gcloud services enable orgpolicy.googleapis.com
 gcloud services enable cloudresourcemanager.googleapis.com
 
 echo "Setting organizational policy configuration..."
-sed -i "s@{PROJECTNUMBER}@$PROJECTNUMBER@" policies/requireOsLogin.yaml
-sed -i "s@{PROJECTNUMBER}@$PROJECTNUMBER@" policies/allowedPolicyMemberDomains.yaml
-sed -i "s@{PROJECTNUMBER}@$PROJECTNUMBER@" policies/requireShieldedVm.yaml
-sed -i "s@{PROJECTNUMBER}@$PROJECTNUMBER@" policies/vmExternalIpAccess.yaml
+sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/requireOsLogin.yaml
+sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/allowedPolicyMemberDomains.yaml
+sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/requireShieldedVm.yaml
+sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/vmExternalIpAccess.yaml
 
 gcloud org-policies set-policy ./policies/requireOsLogin.yaml --project=$PROJECT
 gcloud org-policies set-policy ./policies/allowedPolicyMemberDomains.yaml --project=$PROJECT
 gcloud org-policies set-policy ./policies/requireShieldedVm.yaml --project=$PROJECT
 gcloud org-policies set-policy ./policies/vmExternalIpAccess.yaml --project=$PROJECT
+
+echo "Creating default network..."
+gcloud services enable compute.googleapis.com
+gcloud compute networks create default
