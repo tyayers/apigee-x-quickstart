@@ -32,6 +32,10 @@ module "project" {
     "compute.googleapis.com",
     "servicenetworking.googleapis.com"
   ]
+  policy_boolean = {
+    "constraints/compute.requireOsLogin" = false
+    "constraints/compute.requireShieldedVm" = false
+  }
   policy_list = {
     "constraints/iam.allowedPolicyMemberDomains" = {
         inherit_from_parent: false
@@ -49,24 +53,6 @@ module "project" {
         values: [],
         allow: {
           all=true
-        }
-    },
-    "constraints/compute.requireOsLogin" = {
-        inherit_from_parent: false
-        status: true
-        suggested_value: null
-        values: [],
-        allow: {
-          enforce=false
-        }
-    },
-    "constraints/compute.requireShieldedVm" = {
-        inherit_from_parent: false
-        status: true
-        suggested_value: null
-        values: [],
-        allow: {
-          enforce=false
         }
     }
   }
