@@ -30,6 +30,6 @@ gcloud org-policies set-policy ./policies/allowedPolicyMemberDomains.yaml --proj
 gcloud org-policies set-policy ./policies/requireShieldedVm.yaml --project=$PROJECT
 gcloud org-policies set-policy ./policies/vmExternalIpAccess.yaml --project=$PROJECT
 
-echo "Creating default network..."
+echo "Create network, if it doesn't exist..."
 gcloud services enable compute.googleapis.com
-gcloud compute networks create default
+gcloud compute networks create $NETWORK

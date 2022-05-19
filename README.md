@@ -37,7 +37,7 @@ The Terraform deployment does the exact same thing as the shell deployment, but 
 
 Click to here to open this repository in Google Cloud Shell, along with a tutorial to guide you through the terraform deployment steps:
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/tyayers/apigee-x-quickstart&cloudshell_git_branch=master&cloudshell_workspace=.&cloudshell_tutorial=docs/terraform-tutorial.md)
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/tyayers/apigee-x-quickstart&cloudshell_git_branch=master&cloudshell_workspace=.&cloudshell_tutorial=docs/tf-tutorial.md)
 
 ```sh
 # STEP 1: cd into the terraform dir
