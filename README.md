@@ -2,13 +2,13 @@
 
 This repo contains scripts for configuring a GCP project and then provisioning an Apigee X instance typical for test or demo use-cases, either directly with shell commands (using gcloud), or with Terraform.
 
-You can directly start a tutorial in Google Cloud Shell here:
-
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/tyayers/apigee-x-quickstart&cloudshell_git_branch=master&cloudshell_workspace=.&cloudshell_tutorial=docs/tutorial.md)
-
 ## Shell deployment
 
 If you would like to deploy everything just using a shell and the gcloud CLI (authenticated with a user with Organization Adminstrator rights), run these commands as described.
+
+Click to here to open this repository in Google Cloud Shell, along with a tutorial to guide you through the shell deployment steps:
+
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/tyayers/apigee-x-quickstart&cloudshell_git_branch=master&cloudshell_workspace=.&cloudshell_tutorial=docs/shell-tutorial.md)
 
 ```sh
 # STEP 1: First edit the env.sh file with your environment variables
@@ -33,7 +33,11 @@ cd shell
 
 ## Terraform deployment
 
-If you would like to deploy everything using Terraform, then run these commands as described.
+The Terraform deployment does the exact same thing as the shell deployment, but just using simpler TF configuration files.
+
+Click to here to open this repository in Google Cloud Shell, along with a tutorial to guide you through the terraform deployment steps:
+
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/tyayers/apigee-x-quickstart&cloudshell_git_branch=master&cloudshell_workspace=.&cloudshell_tutorial=docs/terraform-tutorial.md)
 
 ```sh
 # STEP 1: cd into the terraform dir
