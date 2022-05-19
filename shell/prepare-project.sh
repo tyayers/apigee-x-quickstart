@@ -18,6 +18,8 @@ gcloud services enable orgpolicy.googleapis.com
 gcloud services enable cloudresourcemanager.googleapis.com
 
 echo "Setting organizational policy configuration..."
+PROJECT_NUMBER=$(gcloud projects list --filter="$(gcloud config get-value project)" --format="value(PROJECT_NUMBER)")
+
 sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/requireOsLogin.yaml
 sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/allowedPolicyMemberDomains.yaml
 sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/requireShieldedVm.yaml

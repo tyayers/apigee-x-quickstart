@@ -22,3 +22,5 @@ then
 echo "Linking billing id..."
 gcloud beta billing projects link $PROJECT --billing-account=$BILLING_ID
 fi
+
+gcloud config set project $PROJECT

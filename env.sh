@@ -22,7 +22,3 @@ export MANAGED_DOMAIN_PREFIX="api" # The domain prefix to use for the Apigee X l
 
 # OPTIONAL parameters
 export BILLING_ID=""
-
-gcloud config set project $PROJECT
-
-export PROJECT_NUMBER=$(gcloud projects list --filter="$(gcloud config get-value project)" --format="value(PROJECT_NUMBER)")
