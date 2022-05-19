@@ -26,10 +26,5 @@ echo "No LOCATION variable set"
 exit
 fi
 
-echo "Testing if Apigee X is provisioned..."
-RUNTIME_IP=$(gcloud compute addresses describe lb-ipv4-vip-1 --format="get(address)" --global --project "$PROJECT" --quiet)
-if [ -z "$RUNTIME_IP" ]
-then
 echo "Provisioning Apigee..."
 curl -L https://raw.githubusercontent.com/apigee/devrel/main/tools/apigee-x-trial-provision/apigee-x-trial-provision.sh | bash -
-fi
