@@ -52,9 +52,37 @@ terraform apply --var-file=./x-demo.tfvars -var "project_id=$PROJECT" -var "proj
 
 ---
 
+## Deploy an Apigee proxy directly from an OpenAPI spec
+
+Now that we have our Apigee org and environment, we can easily deploy an API proxy using an API spec. The easiest way to do this is using the tool [apigeecli](https://github.com/apigee/apigeecli). Let's first install the tool by running this command.
+
+```sh
+curl -L https://raw.githubusercontent.com/apigee/apigeecli/master/downloadLatest.sh | sh -
+export PATH=$PATH:$HOME/.apigeecli/bin
+```
+
+Now we can create a proxy based on the famous `petstore` OpenAPI spec.
+
+```sh
+TOKEN=$(gcloud auth print-access-token)
+apigeecli apis create openapi -n petstore -u https://raw.githubusercontent.com/apigee/apigeecli/master/test/petstore.yaml -t $TOKEN -o $PROJECT
+```
+
+This creates and imports a proxy into Apigee based on the OpenAPI spec.
+
+Now let's deploy the proxy into one of our Apigee environments (`dev` or `prod`).
+
+```sh
+apigeecli apis deploy -n petstore -o $PROJECT -t $TOKEN -r -e dev -v 1
+```
+
+Now check out the deployed proxy in the [Apigee console](https://apigee.google.com). To test the API, you will need to create an app and credentials (see the [Apigee docs](https://cloud.google.com/apigee/docs/api-platform/tutorials/secure-calls-your-api-through-api-key-validation) for more information.)
+
+---
+
 ## Deploy an Apigee proxy using a template
 
-Now let's deploy a simple proxy based on a JSON template. For this we can use a tool called `apigee-templater` that will automate the creating and deployment of the proxy.
+Now let's deploy a simple proxy based on a JSON template. For this we can use a tool called [apigee-templater]() that will automate the creating and deployment of the proxy.
 
 [Open](https://raw.githubusercontent.com/apigee/apigee-templater/main/examples/users.json) the template file in a browser to see the definition (proxying user data and adding a rate limit).
 
