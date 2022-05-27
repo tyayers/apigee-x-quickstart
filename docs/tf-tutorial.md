@@ -87,10 +87,12 @@ Now let's deploy a simple proxy based on a JSON template. For this we can use a 
 [Open](https://raw.githubusercontent.com/apigee/apigee-templater/main/examples/users.json) the template file in a browser to see the definition (proxying user data and adding a rate limit).
 
 ```sh
-# STEP 1: install the apigee-templater-cli for easy proxy templating (more information at github.com/apigee/apigee-templater)
 npm i -g apigee-templater-cli
+```
 
-# STEP 2: template and deploy a test proxy to the 'test' environment for user data
+And now we can deploy the proxy based on a simple template.
+
+```sh
 apigee-template -f https://raw.githubusercontent.com/apigee/apigee-templater/main/examples/users.json -d -e test
 ```
 
