@@ -1,5 +1,5 @@
 TOKEN=$(gcloud auth print-access-token)
-ENVIRONMENT_TYPE=COMPREHENSIVE
+ENVIRONMENT_TYPE="COMPREHENSIVE"
 ENV_GROUP_NAME="test-env-group"
 ENV_GROUP_HOSTNAME="34.149.15.36.nip.io"
 INSTANCE_NAME="europe-west1"
@@ -19,8 +19,8 @@ do
     --header "Content-Type: application/json" \
     -X POST \
     -d "{
-      "name":"'"$ENVIRONMENT_NAME"'",
-      "type":"'"$ENVIRONMENT_TYPE"'"
+      \"name\": \"$ENVIRONMENT_NAME\",
+      \"type\": \"$ENVIRONMENT_TYPE\"
     }")
 
     echo $RESULT
@@ -43,7 +43,7 @@ do
     --header "Content-Type: application/json" \
     -X POST \
     -d "{
-      "environment":"'"$ENVIRONMENT_NAME"'"
+      \"environment\": \"$ENVIRONMENT_NAME\"
     }")
 
     echo $RESULT
@@ -66,7 +66,7 @@ do
     --header "Content-Type: application/json" \
     -X POST \
     -d "{
-      "environment":"'"$ENVIRONMENT_NAME"'"
+      \"environment\": \"$ENVIRONMENT_NAME\"
     }")
 
     echo $RESULT
