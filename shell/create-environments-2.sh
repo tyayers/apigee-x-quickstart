@@ -4,7 +4,7 @@ ENV_GROUP_NAME="test-env-group"
 ENV_GROUP_HOSTNAME="34.149.15.36.nip.io"
 INSTANCE_NAME="europe-west1"
 NUMBER_OF_ENVIRONMENTS=3
-export GOOGLE_CLOUD_PROJECT=$(gcloud config get project)
+GOOGLE_CLOUD_PROJECT=$(gcloud config get project)
 
 COUNTER=1
 
@@ -26,3 +26,6 @@ do
 
     COUNTER=$(( $COUNTER + 1 ))
 done
+
+# To check if attachments are complete
+# curl -i -H "Authorization: Bearer $AUTH" "https://apigee.googleapis.com/v1/organizations/$GOOGLE_CLOUD_PROJECT/instances/$INSTANCE_NAME/attachments"
