@@ -17,7 +17,7 @@ cp 1_env.sh 1_env.dev.sh
 ```
 Click to copy into a new environment file.
 
-After copying the file, click <walkthrough-editor-open-file filePath="1_env.dev.sh">here</walkthrough-editor-open-file> to open the file in the editor. 
+After copying the file, click <walkthrough-editor-open-file filePath="1_env.dev.sh">here</walkthrough-editor-open-file> to open the file in the editor. Set the variables to your own values.
 
 Then, source the `1_env.dev.sh` file in the Cloud shell.
 
