@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
  */
 
 locals {
-  subnet_region_name = { for subnet in var.exposure_subnets :
+  psc_subnet_region_name = { for subnet in var.psc_ingress_subnets :
     subnet.region => "${subnet.region}/${subnet.name}"
   }
 }
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v15.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v28.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -59,56 +59,66 @@ module "project" {
 }
 
 module "vpc" {
-  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v15.0.0"
+  source     = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
   project_id = module.project.project_id
   name       = var.network
-  subnets    = var.exposure_subnets
   psa_config = {
     ranges = {
       apigee-range         = var.peering_range
       apigee-support-range = var.support_range
     }
-    routes = null
   }
 }
 
 module "nip-development-hostname" {
-  source             = "github.com/apigee/terraform-modules//modules/nip-development-hostname"
+  source             = "../../modules/nip-development-hostname"
   project_id         = module.project.project_id
   address_name       = "apigee-external"
   subdomain_prefixes = [for name, _ in var.apigee_envgroups : name]
 }
 
 module "apigee-x-core" {
-  source              = "github.com/apigee/terraform-modules//modules/apigee-x-core"
+  source              = "../../modules/apigee-x-core"
+  billing_type        = "PAYG"
   project_id          = module.project.project_id
   ax_region           = var.ax_region
-  apigee_instances    = var.apigee_instances
   apigee_environments = var.apigee_environments
   apigee_envgroups = {
     for name, env_group in var.apigee_envgroups : name => {
-      environments = env_group.environments
-      hostnames    = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
+      hostnames = concat(env_group.hostnames, ["${name}.${module.nip-development-hostname.hostname}"])
     }
   }
-  network = module.vpc.network.id
+  apigee_instances = var.apigee_instances
+  network          = module.vpc.network.id
 }
 
-module "apigee-x-bridge-mig" {
-  for_each    = var.apigee_instances
-  source      = "github.com/apigee/terraform-modules//modules/apigee-x-bridge-mig"
-  project_id  = module.project.project_id
-  network     = module.vpc.network.id
-  subnet      = module.vpc.subnet_self_links[local.subnet_region_name[each.value.region]]
-  region      = each.value.region
-  endpoint_ip = module.apigee-x-core.instance_endpoints[each.key]
+module "psc-ingress-vpc" {
+  source                  = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/net-vpc?ref=v28.0.0"
+  project_id              = module.project.project_id
+  name                    = var.psc_ingress_network
+  auto_create_subnetworks = false
+  subnets                 = var.psc_ingress_subnets
 }
 
-module "mig-l7xlb" {
-  source          = "github.com/apigee/terraform-modules//modules/mig-l7xlb"
+resource "google_compute_region_network_endpoint_group" "psc_neg" {
+  project               = var.project_id
+  for_each              = var.apigee_instances
+  name                  = "psc-neg-${each.value.region}"
+  region                = each.value.region
+  network               = module.psc-ingress-vpc.network.id
+  subnetwork            = module.psc-ingress-vpc.subnet_self_links[local.psc_subnet_region_name[each.value.region]]
+  network_endpoint_type = "PRIVATE_SERVICE_CONNECT"
+  psc_target_service    = module.apigee-x-core.instance_service_attachments[each.value.region]
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+module "nb-psc-l7xlb" {
+  source          = "../../modules/nb-psc-l7xlb"
   project_id      = module.project.project_id
-  name            = "apigee-xlb"
-  backend_migs    = [for _, mig in module.apigee-x-bridge-mig : mig.instance_group]
-  ssl_certificate = module.nip-development-hostname.ssl_certificate
+  name            = "apigee-xlb-psc"
+  ssl_certificate = [module.nip-development-hostname.ssl_certificate]
   external_ip     = module.nip-development-hostname.ip_address
+  psc_negs        = [for _, psc_neg in google_compute_region_network_endpoint_group.psc_neg : psc_neg.id]
 }

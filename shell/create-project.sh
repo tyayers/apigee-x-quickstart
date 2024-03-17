@@ -15,12 +15,12 @@
 # limitations under the License.
 
 echo "Creating project..."
-gcloud projects create $PROJECT
+gcloud projects create $PROJECT_ID
 
 if [ -n "$BILLING_ID" ]
 then
 echo "Linking billing id..."
-gcloud beta billing projects link $PROJECT --billing-account=$BILLING_ID
+gcloud beta billing projects link $PROJECT_ID --billing-account=$BILLING_ID
 fi
 
-gcloud config set project $PROJECT
+gcloud config set project $PROJECT_ID

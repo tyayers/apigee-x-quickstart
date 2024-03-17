@@ -16,33 +16,51 @@
 
 ax_region = "europe-west1"
 
-apigee_environments = ["dev", "test"]
-
 apigee_instances = {
   euw1-instance = {
     region       = "europe-west1"
     ip_range     = "10.0.0.0/22"
-    environments = ["dev", "test"]
+    environments = ["test1", "test2"]
+  }
+}
+
+apigee_environments = {
+  test1 = {
+    display_name = "Test 1"
+    description  = "Environment created by apigee/terraform-modules"
+    node_config  = null
+    iam          = null
+    envgroups    = ["test"]
+    type         = null
+  }
+  test2 = {
+    display_name = "Test 2"
+    description  = "Environment created by apigee/terraform-modules"
+    node_config  = null
+    iam          = null
+    envgroups    = ["test"]
+    type         = null
   }
 }
 
 apigee_envgroups = {
-  api = {
-    environments = ["dev", "test"]
-    hostnames    = ["test.api.example.com"]
+  test = {
+    hostnames = ["test.api.example.com"]
   }
 }
 
 network = "apigee-network"
 
-exposure_subnets = [
+psc_ingress_network = "psc-ingress"
+
+psc_ingress_subnets = [
   {
-    name               = "apigee-exposure"
+    name               = "apigee-psc-euw1"
     ip_cidr_range      = "10.100.0.0/24"
     region             = "europe-west1"
     secondary_ip_range = null
   }
 ]
 
-peering_range = "10.0.0.0/22"
+peering_range = "10.0.0.0/20"
 support_range = "10.1.0.0/28"

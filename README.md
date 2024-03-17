@@ -47,7 +47,7 @@ cd terraform
 terraform init
 
 # STEP 3: apply terraform configuration, creating a project and Apigee X instance
-terraform apply --var-file=./x-demo.tfvars -var "project_id=$PROJECT" -var "project_create=true" -var "billing_account=$BILLING_ID"
+terraform apply --var-file=./x-demo.tfvars -var "project_id=$PROJECT_ID" -var "project_create=true" -var "billing_account=$BILLING_ID"
 ```
 
 ## Deploy a test proxy

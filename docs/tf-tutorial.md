@@ -10,14 +10,14 @@ Let's get started!
 
 ## Setup environment
 
-Edit the provided sample `env.sh` file, and set the environment variables there for your deployment.
+Edit the provided sample `1_env.sh` file, and set the environment variables there for your deployment.
 
 Click <walkthrough-editor-open-file filePath="env.sh">here</walkthrough-editor-open-file> to open the file in the editor. 
 
-Then, source the `env.sh` file in the Cloud shell.
+Then, source the `1_env.sh` file in the Cloud shell.
 
 ```sh
-source ./env.sh
+source ./1_env.sh
 ```
 ---
 
@@ -47,7 +47,7 @@ This will set the correct org policies that Apigee needs for a typical demo or t
 Now we are ready to apply the configuration, which will create our GCP project, the Apigee X instance and environments, and a load balancer and certificate to reach our API endpoints.
 
 ```sh
-terraform apply --var-file=./x-demo.tfvars -var "project_id=$PROJECT" -var "project_create=true" -var "billing_account=$BILLING_ID"
+terraform apply --var-file=./x-demo.tfvars -var "project_id=$PROJECT_ID" -var "project_create=true" -var "billing_account=$BILLING_ID"
 ```
 
 ---
@@ -65,7 +65,7 @@ Now we can create a proxy based on the famous `petstore` OpenAPI spec.
 
 ```sh
 TOKEN=$(gcloud auth print-access-token)
-apigeecli apis create openapi -n petstore -u https://raw.githubusercontent.com/apigee/apigeecli/master/test/petstore.yaml -t $TOKEN -o $PROJECT
+apigeecli apis create openapi -n petstore -u https://raw.githubusercontent.com/apigee/apigeecli/master/test/petstore.yaml -t $TOKEN -o $PROJECT_ID
 ```
 
 This creates and imports a proxy into Apigee based on the OpenAPI spec.
@@ -73,7 +73,7 @@ This creates and imports a proxy into Apigee based on the OpenAPI spec.
 Now let's deploy the proxy into one of our Apigee environments (`dev` or `prod`).
 
 ```sh
-apigeecli apis deploy -n petstore -o $PROJECT -t $TOKEN -r -e dev -v 1
+apigeecli apis deploy -n petstore -o $PROJECT_ID -t $TOKEN -r -e dev -v 1
 ```
 
 Now check out the deployed proxy in the [Apigee console](https://apigee.google.com). To test the API, you will need to create an app and credentials (see the [Apigee docs](https://cloud.google.com/apigee/docs/api-platform/tutorials/secure-calls-your-api-through-api-key-validation) for more information.)

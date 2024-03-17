@@ -25,10 +25,10 @@ sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/allowedPolicyMemberDomains.
 sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/requireShieldedVm.yaml
 sed -i "s@{PROJECTNUMBER}@$PROJECT_NUMBER@" policies/vmExternalIpAccess.yaml
 
-gcloud org-policies set-policy ./policies/requireOsLogin.yaml --project=$PROJECT
-gcloud org-policies set-policy ./policies/allowedPolicyMemberDomains.yaml --project=$PROJECT
-gcloud org-policies set-policy ./policies/requireShieldedVm.yaml --project=$PROJECT
-gcloud org-policies set-policy ./policies/vmExternalIpAccess.yaml --project=$PROJECT
+gcloud org-policies set-policy ./policies/requireOsLogin.yaml --project=$PROJECT_ID
+gcloud org-policies set-policy ./policies/allowedPolicyMemberDomains.yaml --project=$PROJECT_ID
+gcloud org-policies set-policy ./policies/requireShieldedVm.yaml --project=$PROJECT_ID
+gcloud org-policies set-policy ./policies/vmExternalIpAccess.yaml --project=$PROJECT_ID
 
 echo "Create network, if it doesn't exist..."
 gcloud services enable compute.googleapis.com

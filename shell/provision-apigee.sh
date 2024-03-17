@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ -z "$PROJECT" ]
+if [ -z "$PROJECT_ID" ]
 then
 echo "No PROJECT variable set"
 exit
