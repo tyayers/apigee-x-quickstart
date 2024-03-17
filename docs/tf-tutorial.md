@@ -10,14 +10,19 @@ Let's get started!
 
 ## Setup environment
 
-Edit the provided sample `1_env.sh` file, and set the environment variables there for your deployment.
-
-Click <walkthrough-editor-open-file filePath="1_env.sh">here</walkthrough-editor-open-file> to open the file in the editor. 
-
-Then, source the `1_env.sh` file in the Cloud shell.
+First, copy the provided sample `1_env.sh` file, and set the environment variables there for your deployment.
 
 ```sh
-source ./1_env.sh
+cp 1_env.sh 1_env.dev.sh 
+```
+Click to copy into a new environment file.
+
+After copying the file, click <walkthrough-editor-open-file filePath="1_env.dev.sh">here</walkthrough-editor-open-file> to open the file in the editor. 
+
+Then, source the `1_env.dev.sh` file in the Cloud shell.
+
+```sh
+source ./1_env.dev.sh
 ```
 ---
 
@@ -35,6 +40,7 @@ Now let's init our configuration:
 cd terraform
 terraform init
 ```
+Click the arrow above to copy this into your shell and run the command.
 
 This will set the correct org policies that Apigee needs for a typical demo or test environment.
 
@@ -47,8 +53,13 @@ This will set the correct org policies that Apigee needs for a typical demo or t
 Now we are ready to apply the configuration, which will create our GCP project, the Apigee X instance and environments, and a load balancer and certificate to reach our API endpoints.
 
 ```sh
-terraform apply --var-file=./x-demo.tfvars -var "project_id=$PROJECT_ID" -var "project_create=true" -var "billing_account=$BILLING_ID"
+terraform apply --var-file=./x-demo.tfvars \
+-var "project_id=$PROJECT_ID" \
+-var "project_create=true" \
+-var "billing_account=$BILLING_ID" \
+-var "apigee_admin=$APIGEE_ADMIN"
 ```
+Click the arrow above to copy this command into your shell and then run the command.
 
 ---
 

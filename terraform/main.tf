@@ -21,7 +21,7 @@ locals {
 }
 
 module "project" {
-  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v28.0.0"
+  source          = "github.com/terraform-google-modules/cloud-foundation-fabric//modules/project?ref=v15.0.0"
   name            = var.project_id
   parent          = var.project_parent
   billing_account = var.billing_account
@@ -71,14 +71,14 @@ module "vpc" {
 }
 
 module "nip-development-hostname" {
-  source             = "../../modules/nip-development-hostname"
+  source             = "github.com/apigee/terraform-modules/modules/nip-development-hostname"
   project_id         = module.project.project_id
   address_name       = "apigee-external"
   subdomain_prefixes = [for name, _ in var.apigee_envgroups : name]
 }
 
 module "apigee-x-core" {
-  source              = "../../modules/apigee-x-core"
+  source              = "github.com/apigee/terraform-modules/modules/apigee-x-core"
   billing_type        = "PAYG"
   project_id          = module.project.project_id
   ax_region           = var.ax_region
@@ -115,10 +115,20 @@ resource "google_compute_region_network_endpoint_group" "psc_neg" {
 }
 
 module "nb-psc-l7xlb" {
-  source          = "../../modules/nb-psc-l7xlb"
+  source          = "github.com/apigee/terraform-modules/modules/nb-psc-l7xlb"
   project_id      = module.project.project_id
   name            = "apigee-xlb-psc"
   ssl_certificate = [module.nip-development-hostname.ssl_certificate]
   external_ip     = module.nip-development-hostname.ip_address
   psc_negs        = [for _, psc_neg in google_compute_region_network_endpoint_group.psc_neg : psc_neg.id]
+}
+
+resource "google_project_iam_member" "member-role" {
+  for_each = toset([
+    "roles/editor",
+    "roles/apigee.admin"
+  ])
+  role = each.key
+  member = "user:${var.apigee_admin}"
+  project = var.project_id
 }

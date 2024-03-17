@@ -20,32 +20,35 @@ apigee_instances = {
   euw1-instance = {
     region       = "europe-west1"
     ip_range     = "10.0.0.0/22"
-    environments = ["test1", "test2"]
+    environments = ["dev", "prod"]
   }
 }
 
 apigee_environments = {
-  test1 = {
-    display_name = "Test 1"
+  dev = {
+    display_name = "dev"
     description  = "Environment created by apigee/terraform-modules"
     node_config  = null
     iam          = null
-    envgroups    = ["test"]
+    envgroups    = ["dev"]
     type         = null
   }
-  test2 = {
-    display_name = "Test 2"
+  prod = {
+    display_name = "prod"
     description  = "Environment created by apigee/terraform-modules"
     node_config  = null
     iam          = null
-    envgroups    = ["test"]
+    envgroups    = ["prod"]
     type         = null
   }
 }
 
 apigee_envgroups = {
-  test = {
-    hostnames = ["test.api.example.com"]
+  dev = {
+    hostnames = ["dev.api.example.com"]
+  }
+  prod = {
+    hostnames = ["prod.api.example.com"]
   }
 }
 
