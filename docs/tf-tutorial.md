@@ -12,7 +12,7 @@ Let's get started!
 
 Edit the provided sample `1_env.sh` file, and set the environment variables there for your deployment.
 
-Click <walkthrough-editor-open-file filePath="env.sh">here</walkthrough-editor-open-file> to open the file in the editor. 
+Click <walkthrough-editor-open-file filePath="1_env.sh">here</walkthrough-editor-open-file> to open the file in the editor. 
 
 Then, source the `1_env.sh` file in the Cloud shell.
 
