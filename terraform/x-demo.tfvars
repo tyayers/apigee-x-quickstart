@@ -31,7 +31,7 @@ apigee_environments = {
     node_config  = null
     iam          = null
     envgroups    = ["dev"]
-    type         = null
+    type         = "INTERMEDIATE"
   }
   prod = {
     display_name = "prod"
@@ -39,7 +39,7 @@ apigee_environments = {
     node_config  = null
     iam          = null
     envgroups    = ["prod"]
-    type         = null
+    type         = "INTERMEDIATE"
   }
 }
 
