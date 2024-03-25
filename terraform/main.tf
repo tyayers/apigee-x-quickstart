@@ -77,6 +77,10 @@ module "nip-development-hostname" {
   subdomain_prefixes = [for name, _ in var.apigee_envgroups : name]
 }
 
+/**
+billing_type = PAYG, EVALUATION, SUBSCRIPTION
+*/
+
 module "apigee-x-core" {
   source              = "github.com/apigee/terraform-modules/modules/apigee-x-core"
   billing_type        = "PAYG"
