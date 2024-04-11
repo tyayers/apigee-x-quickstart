@@ -68,6 +68,12 @@ variable "billing_account" {
   default     = null
 }
 
+variable "apigee_billing_type" {
+  description = "Apigee billing type - either PAYG, EVALUATION, or SUBSCRIPTION"
+  type        = string
+  default     = "EVALUATION"
+}
+
 variable "project_parent" {
   description = "Parent folder or organization in 'folders/folder_id' or 'organizations/org_id' format."
   type        = string

@@ -83,7 +83,7 @@ billing_type = PAYG, EVALUATION, SUBSCRIPTION
 
 module "apigee-x-core" {
   source              = "github.com/apigee/terraform-modules/modules/apigee-x-core"
-  billing_type        = "PAYG"
+  billing_type        = var.apigee_billing_type
   project_id          = module.project.project_id
   ax_region           = var.ax_region
   apigee_environments = var.apigee_environments
