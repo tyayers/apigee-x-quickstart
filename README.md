@@ -40,14 +40,20 @@ Click to here to open this repository in Google Cloud Shell, along with a tutori
 [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/tyayers/apigee-x-quickstart&cloudshell_git_branch=master&cloudshell_workspace=.&cloudshell_tutorial=docs/tf-tutorial.md)
 
 ```sh
-# STEP 1: cd into the terraform dir
-cd terraform
+# STEP 1: copy the env file and add your own project and billing information
+cp 1_env.sh 1_env.dev.sh 
+source 1_env.dev.sh
 
 # STEP 2: run terraform init on the configuration
+cd terraform
 terraform init
 
-# STEP 3: apply terraform configuration, creating a project and Apigee X instance
-terraform apply --var-file=./x-demo.tfvars -var "project_id=$PROJECT_ID" -var "project_create=true" -var "billing_account=$BILLING_ID"
+# STEP 3: apply terraform configuration for Apigee eval, creating a project and Apigee X instance
+terraform apply --var-file=./x-eval.tfvars \
+-var "project_id=$PROJECT_ID" \
+-var "project_create=true" \
+-var "billing_account=$BILLING_ID" \
+-var "apigee_admin=$APIGEE_ADMIN"
 ```
 
 ## Deploy a test proxy
