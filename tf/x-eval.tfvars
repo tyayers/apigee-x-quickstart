@@ -27,21 +27,30 @@ apigee_instances = {
 apigee_environments = {
   dev = {
     display_name = "dev"
-    description  = "Environment created by apigee/terraform-modules"
+    description  = "Apigee environment for development."
     node_config  = null
     iam          = null
     envgroups    = ["dev"]
-    type         = "INTERMEDIATE"
   }
+  prod = {
+    display_name = "prod"
+    description  = "Apigee environment for production."
+    node_config  = null
+    iam          = null
+    envgroups    = ["prod"]
+  }  
 }
 
 apigee_envgroups = {
   dev = {
     hostnames = []
   }
+  prod = {
+    hostnames = []
+  }
 }
 
-apigee_billing_type = "EVAL"
+apigee_billing_type = "EVALUATION"
 
 network = "apigee-network"
 
