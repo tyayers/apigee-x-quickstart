@@ -2,6 +2,41 @@
 
 This repo contains scripts for configuring a GCP project and then provisioning an Apigee X instance typical for test or demo use-cases, either directly with shell commands (using gcloud), or with Terraform.
 
+## Terraform deployment
+
+The Terraform deployment creates the project, Apigee X runtime, environments, groups, and public load balancer with HTTPS certificate.
+
+Click to here to open this repository in Google Cloud Shell, along with a tutorial to guide you through the terraform deployment steps:
+
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/tyayers/apigee-x-quickstart&cloudshell_git_branch=master&cloudshell_workspace=.&cloudshell_tutorial=docs/tf-tutorial.md)
+
+Or clone this repository and run these commands.
+
+```sh
+# STEP 1: copy the env file and add your own project and billing information
+cp 1_env.sh 1_env.dev.sh 
+source 1_env.dev.sh
+
+# STEP 2: run terraform init on the configuration
+cd tf
+terraform init
+
+# STEP 3: apply terraform configuration for Apigee eval, creating a project and Apigee X instance
+terraform apply --var-file=./x-eval.tfvars \
+-var "project_id=$PROJECT_ID" \
+-var "project_create=true" \
+-var "billing_account=$BILLING_ID" \
+-var "apigee_admin=$APIGEE_ADMIN"
+
+# STEP 4: destroy project when finished
+terraform destroy --var-file=./x-eval.tfvars \
+-var "project_id=$PROJECT_ID" \
+-var "project_create=true" \
+-var "billing_account=$BILLING_ID" \
+-var "apigee_admin=$APIGEE_ADMIN"
+```
+
+
 ## Shell deployment
 
 If you would like to deploy everything just using a shell and the gcloud CLI (authenticated with a user with Organization Adminstrator rights), run these commands as described.
@@ -29,31 +64,6 @@ cd shell
 # STEP 5: Provision Apigee and test a first proxy
 ./provision-apigee.sh
 
-```
-
-## Terraform deployment
-
-The Terraform deployment does the exact same thing as the shell deployment, but just using simpler TF configuration files.
-
-Click to here to open this repository in Google Cloud Shell, along with a tutorial to guide you through the terraform deployment steps:
-
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.png)](https://ssh.cloud.google.com/cloudshell/open?cloudshell_git_repo=https://github.com/tyayers/apigee-x-quickstart&cloudshell_git_branch=master&cloudshell_workspace=.&cloudshell_tutorial=docs/tf-tutorial.md)
-
-```sh
-# STEP 1: copy the env file and add your own project and billing information
-cp 1_env.sh 1_env.dev.sh 
-source 1_env.dev.sh
-
-# STEP 2: run terraform init on the configuration
-cd terraform
-terraform init
-
-# STEP 3: apply terraform configuration for Apigee eval, creating a project and Apigee X instance
-terraform apply --var-file=./x-eval.tfvars \
--var "project_id=$PROJECT_ID" \
--var "project_create=true" \
--var "billing_account=$BILLING_ID" \
--var "apigee_admin=$APIGEE_ADMIN"
 ```
 
 ## Deploy a test proxy

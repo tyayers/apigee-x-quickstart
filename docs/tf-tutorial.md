@@ -37,7 +37,7 @@ Click <walkthrough-editor-open-file filePath="./terraform/x-demo.tfvars">here</w
 Now let's init our configuration:
 
 ```sh
-cd terraform
+cd tf
 terraform init
 ```
 Click the arrow above to copy this into your shell and run the command.
