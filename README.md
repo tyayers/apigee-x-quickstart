@@ -13,22 +13,26 @@ Click to here to open this repository in Google Cloud Shell, along with a tutori
 Or clone this repository and run these commands.
 
 ```sh
-# STEP 1: copy the env file and add your own project and billing information
-cp 1_env.sh 1_env.dev.sh 
+# Clone the repository and switch to the directory
+git clone https://github.com/tyayers/apigee-x-quickstart.git; cd apigee-x-quickstart
+
+# Copy the env file and add your own project and billing information
+cp 1_env.sh 1_env.dev.sh
+# Edit the 1_env.dev.sh file with your project and billing information
 source 1_env.dev.sh
 
-# STEP 2: run terraform init on the configuration
+# Run terraform init on the configuration
 cd tf
 terraform init
 
-# STEP 3: apply terraform configuration for Apigee eval, creating a project and Apigee X instance
+# Apply the terraform configuration for Apigee eval, creating a project and Apigee X instance and two environments (dev and prod)
 terraform apply --var-file=./x-eval.tfvars \
 -var "project_id=$PROJECT_ID" \
 -var "project_create=true" \
 -var "billing_account=$BILLING_ID" \
 -var "apigee_admin=$APIGEE_ADMIN"
 
-# STEP 4: destroy project when finished
+# Destroy project when finished
 terraform destroy --var-file=./x-eval.tfvars \
 -var "project_id=$PROJECT_ID" \
 -var "project_create=true" \
