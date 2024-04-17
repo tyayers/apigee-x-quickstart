@@ -134,5 +134,5 @@ resource "google_project_iam_member" "member-role" {
   ])
   role = each.key
   member = "user:${var.apigee_admin}"
-  project = var.project_id
+  project = module.project.project_id
 }
