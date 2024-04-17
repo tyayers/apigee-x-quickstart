@@ -20,7 +20,7 @@ apigee_instances = {
   euw1-instance = {
     region       = "europe-west1"
     ip_range     = "10.0.0.0/22"
-    environments = ["dev"]
+    environments = ["dev", "prod"]
   }
 }
 
